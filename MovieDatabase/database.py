@@ -16,7 +16,7 @@ DELETE_MOVIE = "DELETE FROM movies WHERE title = ?;"
 SELECT_ALL_MOVIES = "SELECT * FROM movies"
 SELECT_UPCOMING_MOVIES = "SELECT * FROM movies WHERE release_timestamp > ?;"
 SELECT_WATCHED_MOVIES = "SELECT * FROM watched WHERE watcher_name = ?;"
-INSERT_WATCHED_MOVIES = "INSERT INTO watched (watcher_name, title) VALUES(? ?);"
+INSERT_WATCHED_MOVIES = "INSERT INTO watched (watcher_name, title) VALUES(?, ?);"
 SET_MOVIES_WATCHED = "UPDATE movies SET watched=1 WHERE title = ?;"
 
 
