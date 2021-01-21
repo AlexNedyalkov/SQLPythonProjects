@@ -1,5 +1,5 @@
 import datetime
-from SQL_Pyhton_Projects.MovieDatabase.database import create_tables, add_movie, get_movies, watch_movie, get_watched_movies
+from MovieDatabase.database import create_tables, add_movie, get_movies, watch_movie, get_watched_movies
 
 menu = """Please select one of the following options:
 1) Add new movie.
