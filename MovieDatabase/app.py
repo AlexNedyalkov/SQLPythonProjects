@@ -23,10 +23,12 @@ def prompt_add_movie():
     parse_date = datetime.datetime.strptime(movie_release_date, "%d-%m-%Y").timestamp()
     return movie_title, parse_date
 
+
 def prompt_watch_movie():
     watched_title = input("Enter the movie title you have watched: ")
     username = input("Enter your username: ")
     return username, watched_title
+
 
 def print_movies_list(heading, movies):
     print(f" --- {heading} movies -- ")
@@ -34,6 +36,7 @@ def print_movies_list(heading, movies):
         movie_release_date = datetime.datetime.fromtimestamp(movie['release_timestamp'])
         human_date = movie_release_date.strftime('%b %d %Y')
         print(f"{movie['title']}: {human_date}")
+
 
 def print_watched_movies(username, movies):
     print(f" --- {username} watched movies ---")
