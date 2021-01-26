@@ -2,15 +2,7 @@ import datetime
 import psycopg2
 from SQL_Pyhton_Projects.MovieDatabase.database import create_tables, add_movie, get_movies, watch_movie, get_watched_movies, add_user, search_movies
 
-url = "postgres://lhmyyxgo:U_totp5tDmfjLY7_Z8llkTzFCBai6gTs@kandula.db.elephantsql.com:5432/lhmyyxgo"
-connection = psycopg2.connect(url)
 
-cursor = connection.cursor()
-cursor.execute("SELECT * from users")
-first_user= cursor.fetchone()
-
-print(first_user)
-connection.close()
 
 menu = """Please select one of the following options:
 1) Add new movie.
@@ -68,9 +60,9 @@ def prompt_search_movie():
 def print_movies_list(heading, movies):
     print(f" --- {heading} movies -- ")
     for movie in movies:
-        movie_release_date = datetime.datetime.fromtimestamp(movie['release_timestamp'])
+        movie_release_date = datetime.datetime.fromtimestamp(movie[2])
         human_date = movie_release_date.strftime('%b %d %Y')
-        print(f"{movie['id']}: {movie['title']}: {human_date}")
+        print(f"{movie[0]}: {movie[1]}: {human_date}")
 
 
 user_input = input(menu)
