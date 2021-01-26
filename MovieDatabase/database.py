@@ -1,5 +1,10 @@
-import sqlite3
+import os
+import psycopg2
 import datetime
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 CREATE_MOVIE_TABLE = """CREATE TABLE if not exists movies (
                    id INTEGER PRIMARY KEY,
@@ -33,8 +38,8 @@ INSERT_WATCHED_MOVIES = "INSERT INTO watched (user_username, movie_id) VALUES(?,
 SET_MOVIES_WATCHED = "UPDATE movies SET watched=1 WHERE title = ?;"
 
 
-connection = sqlite3.connect("data.db")
-connection.row_factory = sqlite3.Row
+connection = psycopg2.connect(os.environ["DATABASE_URL"])
+
 
 
 def create_tables():
