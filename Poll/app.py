@@ -95,5 +95,5 @@ def menu():
         except KeyError:
             print("Invalid input selected. Please try again.")
 
-
+        selection = input(MENU_PROMPT)
 menu()
