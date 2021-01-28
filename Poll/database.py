@@ -1,3 +1,5 @@
+from psycopg2.extras import execute_values
+
 CREATE_POLLS = "CREATE TABLE IF NOT EXISTS polls (id SERIAL PRIMARY KEY, title TEXT, owner_username TEXT);"
 CREATE_OPTIONS = "CREATE TABLE IF NOT EXISTS options (id SERIAL PRIMARY KEY, option_text TEXT, poll_id INTEGER);"
 CREATE_VOTES = "CREATE TABLE IF NOT EXISTS votes (username TEXT, option_id INTEGER);"
@@ -7,6 +9,7 @@ SELECT_POLL_WITH_OPTIONS = """SELECT * FROM polls
                                 JOIN option ON polls.id = options.poll_id
                                 WHERE polls.id = %s;"""
 
+INSERT_POLL_RETURN_ID = "INSERT INTO polls (title, owner) VALUES(%s, $s) RETURNING id"
 INSERT_OPTION = "INSERT INTO options (option_text, poll_id) VALUES(%s, %s);"
 INSERT_VOTE = "INSERT INTO votes (username, option_id) VALUES (%s, %s);"
 
@@ -51,7 +54,11 @@ def get_random_poll_vote(connection, option_id):
 def create_poll(connection, title, owner, options):
     with connection:
         with connection.cursor() as cursor:
-            pass
+            cursor.execute(INSERT_POLL_RETURN_ID, (title, owner))
+
+            poll_id = cursor.fetchone()[0]
+            option_values = [(option_text, poll_id) for option_text in options]
+            cursor.execute(cursor, INSERT_OPTION ,option_values)
 
 def add_poll_vote(connection, username, option_id):
     with connection:
